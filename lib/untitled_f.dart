@@ -9,23 +9,7 @@ class MyPackageApp extends StatelessWidget {
 
   final String initialLocation;
 
-  late final GoRouter _router = GoRouter(
-    initialLocation: initialLocation,
-    routes: [
-      GoRoute(
-        path: '/',
-        builder: (context, state) => const PackageHomeScreen(),
-      ),
-      GoRoute(
-        path: '/first',
-        builder: (context, state) => const FirstScreen(),
-      ),
-      GoRoute(
-        path: '/second',
-        builder: (context, state) => const SecondScreen(),
-      ),
-    ],
-  );
+  late final GoRouter _router = createPackageRouter(initialLocation: initialLocation);
 
   @override
   Widget build(BuildContext context) {
@@ -109,4 +93,24 @@ class SecondScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+GoRouter createPackageRouter({String initialLocation = '/'}) {
+  return GoRouter(
+    initialLocation: initialLocation,
+    routes: [
+      GoRoute(
+        path: '/',
+        builder: (context, state) => const PackageHomeScreen(),
+      ),
+      GoRoute(
+        path: '/first',
+        builder: (context, state) => const FirstScreen(),
+      ),
+      GoRoute(
+        path: '/second',
+        builder: (context, state) => const SecondScreen(),
+      ),
+    ],
+  );
 }
