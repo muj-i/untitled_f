@@ -5,10 +5,12 @@ import 'package:go_router/go_router.dart';
 
 /// Entry widget for the package
 class MyPackageApp extends StatelessWidget {
-  MyPackageApp({super.key});
+  MyPackageApp({super.key, this.initialLocation = '/'});
 
-  final GoRouter _router = GoRouter(
-    initialLocation: '/',
+  final String initialLocation;
+
+  late final GoRouter _router = GoRouter(
+    initialLocation: initialLocation,
     routes: [
       GoRoute(
         path: '/',

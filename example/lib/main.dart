@@ -78,6 +78,15 @@ class MyHomePage extends StatelessWidget {
               },
               child: const Text('Open Package App'),
             ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (_) => MyPackageApp(initialLocation: '/second')),
+                );
+              },
+              child: const Text('Open Package App - With Specific Route'),
+            ),
           ],
         ),
       ),
