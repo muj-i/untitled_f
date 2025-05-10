@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:go_router/go_router.dart';
 import 'package:untitled_f/untitled_f.dart';
 
@@ -7,29 +8,36 @@ void main() {
 }
 
 final GoRouter _router = GoRouter(
-  routes: [
-    GoRoute(
-      path: '/',
-      builder: (context, state) =>
-          const MyHomePage(title: 'Flutter App Home Page'),
-    ),
-    GoRoute(
-      path: '/first',
-      builder: (context, state) => const FirstPage(),
-    ),
-    GoRoute(
-      path: '/second',
-      builder: (context, state) => const SecondPage(),
-    ),
-  ],
+  routes: allRoutes(),
 );
+
+List<GoRoute> allRoutes() {
+  appRoutes.addAll(packageRoutes);
+  return appRoutes;
+}
+
+final List<GoRoute> appRoutes = [
+  GoRoute(
+    path: '/',
+    builder: (context, state) =>
+        const MyHomePage(title: 'Flutter App Home Page'),
+  ),
+  GoRoute(
+    path: '/first',
+    builder: (context, state) => const FirstPage(),
+  ),
+  GoRoute(
+    path: '/second',
+    builder: (context, state) => const SecondPage(),
+  ),
+];
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
+    return GetMaterialApp.router(
       // routerConfig: _router,
       routerDelegate: _router.routerDelegate,
       routeInformationParser: _router.routeInformationParser,
@@ -72,18 +80,13 @@ class MyHomePage extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => MyPackageApp()),
-                );
+                context.push('/package');
               },
               child: const Text('Open Package App'),
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                      builder: (_) => MyPackageApp(initialLocation: '/second')),
-                );
+                context.push('/package/first');
               },
               child: const Text('Open Package App - With Specific Route'),
             ),

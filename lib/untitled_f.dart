@@ -3,26 +3,6 @@ library untitled_f;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-/// Entry widget for the package
-class MyPackageApp extends StatelessWidget {
-  MyPackageApp({super.key, this.initialLocation = '/'});
-
-  final String initialLocation;
-
-  late final GoRouter _router = createPackageRouter(initialLocation: initialLocation);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: _router,
-      title: 'My Package App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-    );
-  }
-}
-
 class PackageHomeScreen extends StatelessWidget {
   const PackageHomeScreen({super.key});
 
@@ -86,7 +66,7 @@ class SecondScreen extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            context.go('/');
+            context.go('/package');
           },
           child: const Text('Back to Package Home Package Screen'),
         ),
@@ -95,22 +75,18 @@ class SecondScreen extends StatelessWidget {
   }
 }
 
-GoRouter createPackageRouter({String initialLocation = '/'}) {
-  return GoRouter(
-    initialLocation: initialLocation,
-    routes: [
-      GoRoute(
-        path: '/',
-        builder: (context, state) => const PackageHomeScreen(),
-      ),
-      GoRoute(
-        path: '/first',
-        builder: (context, state) => const FirstScreen(),
-      ),
-      GoRoute(
-        path: '/second',
-        builder: (context, state) => const SecondScreen(),
-      ),
-    ],
-  );
-}
+final List<GoRoute> packageRoutes = [
+  GoRoute(
+      path: '/package',
+      builder: (context, state) => const PackageHomeScreen(),
+      routes: [
+        GoRoute(
+          path: '/first',
+          builder: (context, state) => const FirstScreen(),
+        ),
+        GoRoute(
+          path: '/second',
+          builder: (context, state) => const SecondScreen(),
+        ),
+      ]),
+];
